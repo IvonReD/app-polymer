@@ -51,15 +51,16 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         Buscar!
       </div>
 
-
       <ul>
           <template is="dom-repeat" items="[[data]]">
-            <li>[[item.title]]</li>
+            <li>[[item.title]] 
+              <p>[[item.time_ago]]</p>
+              <a href="">[[item.url]]</a>
+             </li>
           </template>
           </ul>
 
      <!-- Muestro[[data.title]] -->
-
 
   </template>
 
@@ -93,8 +94,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 //    }
 //    })
 //  })
-
-
 //     window.customElements.define(MyView1.is, MyView1);
 
   </script>
