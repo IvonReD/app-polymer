@@ -49,7 +49,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       <!-- Usuario: <b>{{user}}</b> -->
 
       <form id="form">
-            <paper-input  label="Task" id="task"   value="{{work}}" required></paper-input>
+            <paper-input  label="Task" id="task"  value="{{work}}" required></paper-input>
             <paper-button raised class="custom indigo" on-click="btnAdd">Agregar</paper-button>
             
             <!-- /*- Sergunda forma de declarar una Funcion -*/ -->
@@ -60,15 +60,18 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
             <!-- <paper-button raised class="custom indigo" onclick="addForm()">Agregar</paper-button> -->
       </form>
 
+
+<!-- Seccion donde se muestra la informacion -->
     <ul>
       <template is="dom-repeat" items="{{list}}" rendered-item-count="{{renderedCount}}">
          <div>
            <li>{{work}}
-             <paper-button raised >Eliminar</paper-button>
+             <paper-button raised  on-click="btnEliminar">Eliminar</paper-button>
            </li>
          </div>
       </template>
     </ul>
+
 
   </template>
 
@@ -88,12 +91,13 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
      list: {
        type: Array,
        value: [],
-       notify: true
      }
    },
    btnAdd (e) {
                 this.push('list', this.work);
-                this.set('work', '');
+            },
+   btnEliminar(e) {
+                this.splice('list', e.model.index, 1);
             }
 });
 
