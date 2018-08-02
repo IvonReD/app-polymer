@@ -13,7 +13,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 <link rel="import" href="../bower_components/paper-input/paper-input.html">
 <link rel="import" href="../bower_components/paper-button/paper-button.html">
 <link rel="import" href="../bower_components/iron-icon/iron-icon.html">
-<link rel="import" href="components/polymer/src/elements/dom-repeat.html">
+
 
 
 
@@ -72,7 +72,11 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       </template>
     </ul>
 
-
+    <template is="dom-if" if="{{!renderedCount}}">
+        <template is="dom-if" if="{{!renderedCount}}">
+            Todavía no hay Lista de Actividades!
+        </template>
+    </template>
   </template>
 
 
@@ -94,7 +98,9 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
      }
    },
    btnAdd (e) {
-                this.push('list', this.work);
+             this.saveL =  this.push('list', this.work);
+              console.log(this.work);
+              
             },
    btnEliminar(e) {
                 this.splice('list', e.model.index, 1);
