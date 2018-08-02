@@ -23,7 +23,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     <style include="shared-styles">
       :host {
         display: block;
-
         padding: 10px;
       }
       #task {
@@ -100,8 +99,12 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
    btnAdd (e) {
              this.saveL =  this.push('list', this.work);
               console.log(this.work);
+              localStorage.setItem('act', JSON.stringify(this.work))
+              this.getLo = JSON.parse(localStorage.getItem('act'));
+              console.log(this.getLo);
               
             },
+
    btnEliminar(e) {
                 this.splice('list', e.model.index, 1);
             }
@@ -119,8 +122,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     // });
 
 
-
-  
 
 /*----- Tercera forma de declarar una Funcion ----*/
         // Polymer({
