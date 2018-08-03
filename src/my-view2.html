@@ -13,7 +13,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 <link rel="import" href="../bower_components/paper-input/paper-input.html">
 <link rel="import" href="../bower_components/paper-button/paper-button.html">
 <link rel="import" href="../bower_components/iron-icon/iron-icon.html">
-
+<link rel="import" href="../bower_components/iron-localstorage/iron-localstorage.html">
+<link rel="import" href="../bower_components/iron-list/iron-list.html">
 
 
 
@@ -44,12 +45,30 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       <div class="circle">2</div>
       <h1>To DO</h1>
 
+      <!-- /* -- Seccion donde ingresa los datos -- */ -->
+      <div class="card">
+      <paper-input label="task" value="{{dato.tarea}}"></paper-input>
+      <paper-button raised class="custom indigo" on-click="addTask">ADD</paper-button>
+      </div>
+
+
+<!-- /* Etiqueta donde se almacena los datos en localStorage */ -->
+      <iron-localstorage name="almacenar-list" on-iron-localstorage-load-empty="iniciar" value="{{guardar}}">
+      </iron-localstorage>
+
+<!-- /* Seccion donde se muestra los datos en pantalla */ -->
+        <iron-list items={{guardar}} as="dato">
+          <template>
+            <p> Actividad: {{ dato.tarea }}</p>
+          </template>
+        </iron-list>
+
       <!-- Ejemplo de polymer -->
       <!-- Usuario: <b>{{user}}</b> -->
-
+<!-- 
       <form id="form">
-            <paper-input  label="Task" id="task"  value="{{work}}" required></paper-input>
-            <paper-button raised class="custom indigo" on-click="btnAdd">Agregar</paper-button>
+            <paper-input  label="Task" id="task"  value="{{work}}"></paper-input>
+            <paper-button raised class="custom indigo" on-click="btnAdd">Agregar</paper-button> -->
             
             <!-- /*- Sergunda forma de declarar una Funcion -*/ -->
             <!-- <paper-input  label="Task" id="task" ></paper-input>
@@ -57,58 +76,94 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
             <!-- /*- Tercera forma de declarar una Funcion -*/ -->
             <!-- <paper-button raised class="custom indigo" onclick="addForm()">Agregar</paper-button> -->
-      </form>
+      <!-- </form> -->
 
 
 <!-- Seccion donde se muestra la informacion -->
-    <ul>
-      <template is="dom-repeat" items="{{list}}" rendered-item-count="{{renderedCount}}">
+    <!-- <ul>
+      <template is="dom-repeat" items="[[list]]" rendered-item-count="{{renderedCount}}">
          <div>
-           <li>{{work}}
-             <paper-button raised  on-click="btnEliminar">Eliminar</paper-button>
+           <li>[[work]]
+             <paper-button raised on-click="btnEliminar">Eliminar</paper-button>
            </li>
          </div>
       </template>
     </ul>
 
-    <template is="dom-if" if="{{!renderedCount}}">
         <template is="dom-if" if="{{!renderedCount}}">
             Todavía no hay Lista de Actividades!
-        </template>
-    </template>
-  </template>
+        </template>-->
+  </template> 
+
 
 
   <script>
     Polymer({
       is:"my-view2",
+          properties:{
+             guardar: {
+                type: Array,
+                value() {
+                  return [];
+                  },
+              },
+        dato:{
+          type: Object,
+           value () {
+             return {
+               tarea: ''
+             }
+           }
+        }
+      },
+
+
+iniciar (){
+ this.guardar = [
+   {
+     tarea: "cometario 1"
+   }
+ ]
+},
+
+addTask () {
+ this.push('guardar', this.dato);
+}
+});
+ </script>
+</dom-module>
+
+
+
+
+<!-- 
+
 
       /* --- Ejemplo de Polymer ---*/
       // ready: function(){
       //   this.user= "Hola Segunda Paginas"
       // },
-   properties: {
-     work: {
-       type: String
-     },
-     list: {
-       type: Array,
-       value: [],
-     }
-   },
-   btnAdd (e) {
-             this.saveL =  this.push('list', this.work);
-              console.log(this.work);
-              localStorage.setItem('act', JSON.stringify(this.work))
-              this.getLo = JSON.parse(localStorage.getItem('act'));
-              console.log(this.getLo);
-              
-            },
+//    properties: {
+//      work: {
+//        type: String
+//      },
+//      list: {
+//        type: Array,
+//        value: [],
+//      }
+//    },
+//    btnAdd (e) {
+//              this.saveL =  this.push('list', this.work);
+//               console.log(this.work);
+//               localStorage.setItem('act', JSON.stringify(list))
+//               this.getLo = JSON.parse(localStorage.getItem('act'));
+//               console.log(this.getLo);  
+//             },
 
-   btnEliminar(e) {
-                this.splice('list', e.model.index, 1);
-            }
-});
+//    btnEliminar(e) {
+//                 this.splice('list', e.model.index, 1);
+//             }
+// });
 
 /*----- Segunda forma de declarar una Funcion ----*/
     //   btnAdd: function(){
@@ -131,7 +186,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         //   console.log("segundo click");
         //   document.getElementById('form').submit();
         // }
+      // }); -->
 
-  </script>
-</dom-module>
 
