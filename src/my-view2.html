@@ -59,7 +59,10 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 <!-- /* Seccion donde se muestra los datos en pantalla */ -->
         <iron-list items={{guardar}} as="dato">
           <template>
-            <p> Actividad: {{ dato.tarea }}</p>
+            <div class="card">
+                <p> Actividad: {{ dato.tarea }}</p>
+                <paper-button raised on-click="eliminar">Quitar</paper-button>
+            </div>
           </template>
         </iron-list>
   </template> 
@@ -97,6 +100,12 @@ iniciar (){
 
 addTask () {
  this.push('guardar', this.dato);
+},
+
+eliminar (){
+  alert("Boton Quitar");
+  
+
 }
 });
  </script>
