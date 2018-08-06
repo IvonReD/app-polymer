@@ -102,9 +102,9 @@ addTask () {
  this.push('guardar', this.dato);
 },
 
-eliminar (){
-  alert("Boton Quitar");
-  
+eliminar (e){
+  console.log("Boton Quitar");
+  this.splice('guardar', e.model.index, 1);
 
 }
 });
