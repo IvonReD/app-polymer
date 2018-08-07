@@ -10,32 +10,72 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
 <link rel="import" href="../bower_components/polymer/polymer-element.html">
 <link rel="import" href="shared-styles.html">
+<link rel="import" href="../bower_components/paper-input/paper-input.html">
+<link rel="import" href="../bower_components/paper-button/paper-button.html">
+<link rel="import" href="../bower_components/iron-localstorage/iron-localstorage.html">
+<link rel="import" href="../bower_components/iron-list/iron-list.html">
 
 <dom-module id="my-view3">
   <template>
     <style include="shared-styles">
       :host {
         display: block;
-
         padding: 10px;
+      }
+      paper-button.indigo {
+      background-color: var(--paper-indigo-500);
+      color: white;
+      margin-left: 40px;
+      --paper-button-raised-keyboard-focus: {
+        background-color: var(--paper-pink-a200) !important;
+        color: white !important;
+        };
       }
     </style>
 
    
       <div class="circle">3</div>
       <h1>Bitcoin</h1>
+      <div class="card">
+          <paper-input label="tarea" value="{{user}}"></paper-input>
+          <paper-button raised class="custom indigo" on-click="addUser">ADD</paper-button>
+          </div>
 
-  
+          <dom-module id="my-element">
+              <template>
+                <template is="dom-repeat"></template>
+              </template>
       
   </template>
 
   <script>
-    class MyView3 extends Polymer.Element {
-      static get is() { return 'my-view3'; }
-   
-  
 
-    }
-    window.customElements.define(MyView3.is, MyView3);
+    Polymer ({
+     is:"my-view3",
+     properties: {
+         users: { 
+           type: Array, 
+           value: function() { 
+             return []; }
+              }
+      },
+
+      addUser: function(user) {
+        this.push('users', user);
+        alert("btn add")
+      },
+
+      removeUser: function(user) {
+        var index = this.users.indexOf(user);
+        this.splice('users', index, 1);
+      }
+
+
+    });
+    // class MyView3 extends Polymer.Element {
+    //   static get is() { return 'my-view3'; }
+   
+    // }
+    // window.customElements.define(MyView3.is, MyView3);
   </script>
 </dom-module>

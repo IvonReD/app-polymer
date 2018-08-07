@@ -26,10 +26,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         display: block;
         padding: 10px;
       }
-      #task {
-        width: 400px;
-        margin-left: 20px;
-      }
+     
       paper-button.indigo {
       background-color: var(--paper-indigo-500);
       color: white;
@@ -47,7 +44,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
       <!-- /* -- Seccion donde ingresa los datos -- */ -->
       <div class="card">
-      <paper-input label="task" value="{{dato.tarea}}"></paper-input>
+      <paper-input label="task" value="{{dato.tarea}}" type=></paper-input>
       <paper-button raised class="custom indigo" on-click="addTask">ADD</paper-button>
       </div>
 
@@ -78,6 +75,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
                 value() {
                   return [];
                   },
+                  notify: true
               },
         dato:{
           type: Object,
@@ -98,12 +96,13 @@ iniciar (){
  ]
 },
 
-addTask () {
+addTask (e) {
  this.push('guardar', this.dato);
 },
 
 eliminar (e){
-  console.log("Boton Quitar");
+  // console.log(e.model.index);
+  // console.log("Boton Quitar");
   this.splice('guardar', e.model.index, 1);
 
 }
