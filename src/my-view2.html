@@ -13,8 +13,9 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 <link rel="import" href="../bower_components/paper-input/paper-input.html">
 <link rel="import" href="../bower_components/paper-button/paper-button.html">
 <link rel="import" href="../bower_components/iron-icon/iron-icon.html">
-<link rel="import" href="../bower_components/iron-localstorage/iron-localstorage.html">
 <link rel="import" href="../bower_components/iron-list/iron-list.html">
+<link rel="import" href="../bower_components/iron-localstorage/iron-localstorage.html">
+
 
 
 
@@ -28,170 +29,77 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       }
      
       paper-button.indigo {
-      background-color: var(--paper-indigo-500);
-      color: white;
-      margin-left: 40px;
-      --paper-button-raised-keyboard-focus: {
-        background-color: var(--paper-pink-a200) !important;
-        color: white !important;
-        };
+        background-color: var(--paper-indigo-500);
+                color: white;
+                --paper-button-raised-keyboard-focus: {
+                    background-color: var(--paper-pink-a200) !important;
+                    color: white !important;
+                };
       }
     </style>
 
 
-      <div class="circle">2</div>
-      <h1>To DO</h1>
+<div class="circle">2</div>
+<h1>To DO</h1>
 
-      <!-- /* -- Seccion donde ingresa los datos -- */ -->
-      <div class="card">
-      <paper-input label="task" value="{{dato.tarea}}" type=></paper-input>
-      <paper-button raised class="custom indigo" on-click="addTask">ADD</paper-button>
-      </div>
-
+ <!-- /* -- Seccion donde ingresa los datos -- */ -->
+<div class="card">
+  <paper-input  char-counter label="Tarea" value="{{tarea}}" name="tarea" required></paper-input>
+  <paper-button raised class="custom indigo" on-click="addTask">ADD</paper-button>
+  </div>
 
 <!-- /* Etiqueta donde se almacena los datos en localStorage */ -->
-      <iron-localstorage name="almacenar-list" on-iron-localstorage-load-empty="iniciar" value="{{guardar}}">
-      </iron-localstorage>
-
-<!-- /* Seccion donde se muestra los datos en pantalla */ -->
-        <iron-list items={{guardar}} as="dato">
-          <template>
-            <div class="card">
-                <p> Actividad: {{ dato.tarea }}</p>
-                <paper-button raised on-click="eliminar">Quitar</paper-button>
-            </div>
-          </template>
-        </iron-list>
-  </template> 
+<iron-localstorage name="tareas-save" on-iron-localstorage-load-empty="comienza" value="{{addTarea}}">
+  </iron-localstorage>
 
 
+ <!-- /* -- Seccion para mostrar los datos en pantalla -- */ -->
+ <iron-list items="{{addTarea}}" as="tarea">
+  <template>
+    <div class="card">
+      <span> Actividad: {{tarea}}</span>
+      <br>
+      <paper-button raised on-click="eliminar">Quitar</paper-button>
+    </div>
+  </template>
+ </iron-list>
 
-  <script>
-    Polymer({
-      is:"my-view2",
+
+</template> 
+                            
+      <script>
+        Polymer({
+          is:"my-view2",
           properties:{
-             guardar: {
-                type: Array,
-                value() {
-                  return [];
-                  },
-                  notify: true
-              },
-        dato:{
-          type: Object,
-           value () {
-             return {
-               tarea: ''
+             tarea:{
+               type: String,
+             },
+             addTarea:{
+               type: Array,
+               value (){
+                 return []
+               },
+               notify: true
              }
-           }
-        }
-      },
 
-
-iniciar (){
- this.guardar = [
-   {
-     tarea: "cometario 1"
-   }
- ]
-},
-
-addTask (e) {
- this.push('guardar', this.dato);
-},
-
-eliminar (e){
-  // console.log(e.model.index);
-  // console.log("Boton Quitar");
-  this.splice('guardar', e.model.index, 1);
-
-}
-});
- </script>
-</dom-module>
-
-
-
-
-<!-- 
-  <!-- Ejemplo de polymer -->
-      <!-- Usuario: <b>{{user}}</b> -->
-<!-- 
-      <form id="form">
-            <paper-input  label="Task" id="task"  value="{{work}}"></paper-input>
-            <paper-button raised class="custom indigo" on-click="btnAdd">Agregar</paper-button> -->
-            
-            <!-- /*- Sergunda forma de declarar una Funcion -*/ -->
-            <!-- <paper-input  label="Task" id="task" ></paper-input>
-            <paper-button raised class="custom indigo" on-click="btnAdd">Agregar</paper-button> -->
-
-            <!-- /*- Tercera forma de declarar una Funcion -*/ -->
-            <!-- <paper-button raised class="custom indigo" onclick="addForm()">Agregar</paper-button> -->
-      <!-- </form> -->
-
-
-<!-- Seccion donde se muestra la informacion -->
-    <!-- <ul>
-      <template is="dom-repeat" items="[[list]]" rendered-item-count="{{renderedCount}}">
-         <div>
-           <li>[[work]]
-             <paper-button raised on-click="btnEliminar">Eliminar</paper-button>
-           </li>
-         </div>
-      </template>
-    </ul>
-
-        <template is="dom-if" if="{{!renderedCount}}">
-            Todavía no hay Lista de Actividades!
-        </template>-->
-
-      /* --- Ejemplo de Polymer ---*/
-      // ready: function(){
-      //   this.user= "Hola Segunda Paginas"
-      // },
-//    properties: {
-//      work: {
-//        type: String
-//      },
-//      list: {
-//        type: Array,
-//        value: [],
-//      }
-//    },
-//    btnAdd (e) {
-//              this.saveL =  this.push('list', this.work);
-//               console.log(this.work);
-//               localStorage.setItem('act', JSON.stringify(list))
-//               this.getLo = JSON.parse(localStorage.getItem('act'));
-//               console.log(this.getLo);  
-//             },
-
-//    btnEliminar(e) {
-//                 this.splice('list', e.model.index, 1);
-//             }
-// });
-
-/*----- Segunda forma de declarar una Funcion ----*/
-    //   btnAdd: function(){
-    //     var save = this.$.task.value;
-    //     console.log(save); 
-    //     this.push('work', save)
-    //     localStorage.setItem("tasks", JSON.stringify(save));
-    //     var item = JSON.parse(localStorage.getItem("tasks"));
-    //     console.log(item);
-    //   }
-    // });
-
-
-
-/*----- Tercera forma de declarar una Funcion ----*/
-        // Polymer({
-        //   is:"my-view2"
-        // })
-        // function addForm(){
-        //   console.log("segundo click");
-        //   document.getElementById('form').submit();
-        // }
-      // }); -->
-
-
+          },
+          comienza (){
+             this.addTarea = [
+               "tarea 1"
+             ]
+          },
+          addTask (e){
+            // console.log("agregar");
+            this.push('addTarea', this.tarea);
+            console.log(this.addTarea)
+            this.set('tarea', '');
+            // localStorage.setItem('almacenar', JSON.stringify(this.addTarea));
+          },
+          eliminar (e){
+            this.splice('addTarea', e.model.index, 1);
+          }
+        });
+      
+    
+      </script>
+      </dom-module>
