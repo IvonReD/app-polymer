@@ -103,7 +103,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         console.log(this.arrSave);
         this.set('datos', '');
       },
-      eliminar (){
+      eliminar (e){
         this.splice('arrSave', e.model.index, 1);
       }
     })
