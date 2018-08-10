@@ -1,0 +1,117 @@
+<!-- Load the Polymer.Element base class -->
+<link rel="import" href="../bower_components/polymer/polymer-element.html">
+<link rel="import" href="shared-styles.html">
+<link rel="import" href="../bower_components/iron-ajax/iron-ajax.html">
+<link rel="import" href="../bower_components/highcharts-chart/highcharts-chart.html">
+<link rel="import" href="../bower_components/iron-list/iron-list.html">
+<link rel="import" href="../bower_components/paper-input/paper-input.html">
+<link rel="import" href="../bower_components/paper-button/paper-button.html">
+
+
+<dom-module id="my-view4">
+  <!-- Defines the element's style and local DOM -->
+  <template>
+    <style include="shared-styles">
+      :host {
+        display: block;
+        padding: 16px;
+      }
+    </style>
+
+<div class="circle">4</div>
+<h1>Gráfica de precios de Bitcoin</h1>
+     <div class="card">
+        <paper-input label="Fecha Inicio" id="startDate" value="{{startDate}}"  type="date"></paper-input>
+        <paper-input label="Fecha Final" id="endDate" value="{{endDate}}" type="date"></paper-input>
+        <paper-button raised class="custom indigo" on-click="buscarInfo">ADD</paper-button>   
+    </div> 
+
+
+  <iron-ajax
+  id="getAjax"
+  auto
+  url="https://api.coindesk.com/v1/bpi/historical/close.json?start=2018-08-01&end=2018-08-08"
+  method="get"
+  handle-as="json"
+  last-response="{{data}}"
+  response= "funData">
+</iron-ajax>
+
+<!-- <highcharts-chart 
+type="spline" 
+x-axis='{"Dias": ["2018-08-01","2018-08-02"]}'
+data='[[0, 0], [1, 5]]' 
+title='Gráfica de Fecha' 
+x-zoom x-label="Numero" 
+y-label="Dias">
+</highcharts-chart> -->
+
+  <ul>
+     <template is="dom-repeat" items="[[data]]">
+         <li>[[data.bpi.2018-08-01]]</li>
+     <li> [[data.bpi.2018-08-01]]</li>
+     <li> [[data.bpi.2018-08-02]]</li>
+    </template>
+</ul>
+
+  </template>
+
+
+  <script>    
+   Polymer({
+   is:"my-view4", 
+    properties: {
+        data: Array,
+    },
+   buscarInfo: function(){   
+   const startDate = this.$.startDate.value;
+   const endDate =  this.$.endDate.value;
+   console.log(startDate);
+   console.log(endDate);
+   url="https://api.coindesk.com/v1/bpi/historical/close.json?start=${startDate}&end=${endDate}"
+
+   
+    // this.data = null;
+    this.res=this.$.getAjax.generateRequest();
+    console.log(this.getAjax);
+    
+    
+   },
+   funData: function(data){
+     console.log(data);
+     
+   }
+
+//   app.onClick = function() {
+//     this.response = null;
+//     this.$.ajax.generateRequest();
+//   };
+  
+//   app.json = function(obj) {
+//     return JSON.stringify(obj, null, 2);
+//   };
+// });
+
+    // buscarInfo: function(){
+    // this.$.elajax.generateRequest();
+    // },
+    // btn (){
+    //   var input1 = this.startDate;
+    //   console.log(input1);
+    //   var input2 = this.endDate
+    //   console.log(input2);
+    // }
+   });
+
+  </script>
+</dom-module>
+
+
+<!-- <highcharts-chart 
+type="spline" 
+x-axis='{"Dias": ["2018-08-01","2018-08-02"]}'
+data='[[0, 0], [1, 5]]' 
+title='Gráfica de Fecha' 
+x-zoom x-label="Numero" 
+y-label="Dias">
+</highcharts-chart> -->
